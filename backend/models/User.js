@@ -7,7 +7,7 @@ lastName: { type: String, required: true},
 email: { type: String, required: true, unique: true},
 password: { type: String, required: true},
 passwordConfirm: { type: String, required: true},
-picture: { type: String, default: "../images/avatar.jpg"},
+picture: { type: String, default: "../images/avatar.jpeg"},
 description: {type: String},
 admin: {type: Boolean, required: true},
 
