@@ -22,6 +22,20 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PSWD}@${
   //  { useNewUrlParser: true, useUnifiedTopology: true }
 ).then(() => console.log("✅ Connection to MongoDB is successful !")).catch(() => console.log("⛔️ Connection to MongoDB failed!"));
 
+// Error CORS => Cross Origin Resource Sharing, It is a security system which prevent HTTP calls between different servers, it prevents to access the unwanted requests to sensitive resources
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*"); // tout le monde peut se connecter a notre API
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization" // On donne l'autorisation d'utiliser certains headers sur l'objet requête
+    );
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+    ); // On donne l'autorisation d'utiliser certains methodes sur l'objet requête; get post put delete patch
+    next(); // permet de passer à la lecture des autres middlewares
+  });
+
 app.use(express.json());
 app.use(helmet({ crossOriginResourcePoliciy: false}));
 app.use(exMongoSanitize());
