@@ -2,7 +2,11 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "helmet": "^8.0.0",
+    "hpp": "^0.2.3",
     "mongoose": "^8.8.4",
+    "morgan": "^1.10.0",
     "nodemon": "^3.1.7"
   }
 }
