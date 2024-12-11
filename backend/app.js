@@ -42,4 +42,6 @@ app.use(exMongoSanitize());
 app.use(morgan('combined'));
 app.use(hpp());
 
+// http://localhost:3000/api/auth
+
 module.exports = app;
