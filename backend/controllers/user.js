@@ -1,7 +1,8 @@
 const bcrypt = require("bcrypt");
-// const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Password = require("../password-validation//Password");
+const jwt = require("jsonwebtoken");
+
 
 require("dotenv").config();
 
@@ -45,3 +46,40 @@ exports.signup = (req, res, next) => {
       .catch((error) => res.status(500).json({ error }));
   }
 };
+
+// http://localhost:3000/api/auth/login
+exports.login = (req, res, next) => {
+    console.log("🎉🎉🎉USER LOGIN🎉🎉🎉");
+    console.log(req.body)
+
+    // check whether email exists in the database
+    User.findone({ email: req.body.email}).then((user) => {
+        // if the value is null, user does not exist in the database
+        if (user === null) {
+            res.status(401).json({ message: "⛔️ Account does not exist! Please register!"})
+        }
+
+        // if we have a value, we have to compare the password which is in the database and user password
+        else if(user !== null) {
+            bcrypt.compare(req.body.password, user.password).then((valid) => {
+                if(!valid) {
+                    res.status(401).json({ message: "⛔️ Email and password do not match" })
+                }
+
+                // if password is correct, we have userId and token
+                else if(valid) {
+                    res.status(200).json({
+                        message: "✅ User login is successfull",
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        picture: user.picture,
+                        description: user.description,
+                        _id: user._id,
+                        admin: user.admin
+                    })
+                }
+            })
+        }
+    })
+}
