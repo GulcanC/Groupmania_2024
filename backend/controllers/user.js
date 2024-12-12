@@ -75,10 +75,18 @@ exports.login = (req, res, next) => {
                         picture: user.picture,
                         description: user.description,
                         _id: user._id,
-                        admin: user.admin
-                    })
+                        admin: user.admin,
+
+                        token: jwt.sign(
+                            {
+                                userId: user._id
+                            },
+                            process.env.JWT_KEY_TOKEN,
+                            {experisIn: "24h"}
+                        ),
+                    });
                 }
-            })
+            }).catch((error) => res.status(500).json({error}));
         }
-    })
+    }).catch((error) => res.status(500).json({error}))
 }
