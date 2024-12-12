@@ -115,7 +115,7 @@ exports.updateUser = (req, res, next) => {
         {$set: {picture: imageUrl, description: req.body.description}}
     ).then(() => {
         User.findById({ _id: req.params.id}).then ((user) => res.status(200).json({
-            message: "✅ User profile is succesfully update!",
+            message: "✅ User profile is succesfully updated!",
             picture: user.picture,
             description: user.description
         }));

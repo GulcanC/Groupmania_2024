@@ -42,7 +42,7 @@ switch (error.code) {
 const onListening = () => {
     const address = server.address();
     const bind = typeof address === "string" ? "pipe " +address : "port " + port;
-    console.log(" ✅ Listening on " + bind);
+    console.log("✅ Listening on " + bind);
 };
 
 // configure the port, call the function normalizePort, pass 3000 as a string
