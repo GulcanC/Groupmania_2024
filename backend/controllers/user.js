@@ -98,3 +98,26 @@ exports.login = (req, res, next) => {
         }
     }).catch((error) => res.status(500).json({ error }));
 };
+
+// http://localhost:3000/api/auth/:id
+
+exports.updateUser = (req, res, next) => {
+    let imageUrl = null;
+
+    // verify that there is an image 
+    if (req.file) {
+        imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+    }
+
+    // the $set operator replaces the value of a field with the specified value
+    User.updateOne(
+        { _id: req.params.id},
+        {$set: {picture: imageUrl, description: req.body.description}}
+    ).then(() => {
+        User.findById({ _id: req.params.id}).then ((user) => res.status(200).json({
+            message: "✅ User profile is succesfully update!",
+            picture: user.picture,
+            description: user.description
+        }));
+    }).catch((error) => res.status(500).json({ message: error + "Error code 500!"}))
+}
