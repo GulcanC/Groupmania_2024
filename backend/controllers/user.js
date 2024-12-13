@@ -121,3 +121,19 @@ exports.updateUser = (req, res, next) => {
         }));
     }).catch((error) => res.status(500).json({ message: error + "Error code 500!"}))
 }
+
+// http://localhost:3000/api/auth/:id
+
+exports.deleteUser = (req, res, next) => {
+    User.findOne({ _id: req.params.id});
+    try {
+        User.deleteOne({ _id:req.params.id}).then((deleteProfile) => {
+            console.log("✅ User has been successfully deleted!" );
+            res.status(200).json({
+                message: "✅ User has been succefully deleted!", deleteProfile,
+            });
+        }).catch((error) => res.status(400).json(error))
+    } catch {
+        (error) => res.status(500).json(error)
+    }
+}

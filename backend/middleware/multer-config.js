@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
     filename: (req, file, callback) => {
         // we will manage the new name for the file, access the original name
         // split() will create the different words of the file name, join() to join this array in a single string
-        const name = file.ariginalname.split(" ").join("_");
+        const name = file.originalname.split(" ").join("_");
         const extension = MIME_TYPES[file.mimetype];
         callback(null, name + Date.now() + "." + extension)
     },
