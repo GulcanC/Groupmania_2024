@@ -137,3 +137,32 @@ exports.deleteUser = (req, res, next) => {
         (error) => res.status(500).json(error)
     }
 }
+
+exports.verifyUser = (req, res) => {
+    if(!req.hedaers.authorization) {
+        res.status(403).json({
+            message: "⛔️ There is an authentication problem! ",
+        })
+    }
+    const token = req.headers.authorization.split(" ")[1];
+    if (token) {
+        jwt.verify(token, process.env.JWT_KEY_TOKEN, async (error, decoded) => {
+            if (error) {
+                return res.status(403).send({ message: "Token is invalid " + error});
+            } else {
+                User.findById({ _id: decoded.userId}).then((user) => {
+                    res.status(200).json({
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        picture: user.picture,
+                        description: user.description,
+                        _id: user._id,
+                        admin: user.admin,
+
+                    })
+                })
+            }
+        })
+    }
+}
