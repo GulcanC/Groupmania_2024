@@ -9,7 +9,7 @@ import HelloWorld from './components/'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    
   }
 }
 </script>
