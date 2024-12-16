@@ -7,18 +7,21 @@
         <HomeMsgComp>{{ message }}</HomeMsgComp>
       </h1>
     </main>
+    <footer><FooterComp/></footer>
   </div>
 </template>
 
 <script>
 import HeaderComp from "@/components/HeaderComp.vue";
 import HomeMsgComp from "@/components/HomeMsgComp.vue";
+import FooterComp from "@/components/FooterComp.vue";
 
 export default {
   name: "HomePage",
   components: {
     HeaderComp,
-    HomeMsgComp
+    HomeMsgComp,
+    FooterComp
   },
 };
 </script>
