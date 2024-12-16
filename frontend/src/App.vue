@@ -1,17 +1,17 @@
 <template>
     <div>
-<HeaderComp/>
+<HomePage/>
 
     </div>
 </template>
 
 <script>
-import HeaderComp from '@/components/HeaderComp.vue';
+import HomePage from '@/views/HomePage.vue';
 
 export default {
-    name: "HomePage",
+    name: "App",
     components: {
-        HeaderComp
+        HomePage
     }
 }
 
