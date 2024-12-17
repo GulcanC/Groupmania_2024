@@ -40,6 +40,9 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+    margin: auto;
+}
 .connection {
     display: flex;
     justify-content: center;
