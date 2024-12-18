@@ -54,7 +54,7 @@
             type="password"
             id="password"
             class="form-control"
-            placeholder="Xx1;"
+            placeholder="Xx123;"
             autocomplete="off"
             v-model="user.password"
           />
