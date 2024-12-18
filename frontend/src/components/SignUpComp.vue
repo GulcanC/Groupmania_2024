@@ -137,7 +137,6 @@ export default {
       }
 
       // password
-
       if (regExPassword.test(this.user.password) === true) {
         this.errors.push("✅ Password is valid!");
       } else {
@@ -146,7 +145,6 @@ export default {
 
       
       // password confirmation
-
       if (regExPassword.test(this.user.passwordConfirm) === true) {
         this.errors.push("✅ Password is confirmed!");
       } else {
