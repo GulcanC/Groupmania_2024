@@ -14,8 +14,10 @@ const exMongoSanitize = require('express-mongo-sanitize')
 // Morgan middleware to create logs
 const morgan = require('morgan')
 // HPP middleware to protect against HTTP parameter pollution attacks
-const hpp = require('hpp')
+const hpp = require('hpp');
 const userRoutes = require("./routes/user");
+const publicationRoutes = require("./routes/post");
+const path = require("path");
 
 
 // connect to mongoDB
@@ -44,6 +46,9 @@ app.use(morgan('combined'));
 app.use(hpp());
 
 // http://localhost:3000/api/auth
-app.use("/api/auth", userRoutes)
+app.use("/api/auth", userRoutes);
+app.use("/api/publication", publicationRoutes);
+
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;
