@@ -8,9 +8,8 @@ exports.createPost = (req, res, next) => {
   let imageUrl = null;
 
   if (req.file) {
-    imageUrl = `${req.protocol}://${req.get("host")}/images/${
-      req.file.filename
-    }`;
+    imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename
+      }`;
   }
   const post = new Post({
     ...postObject,
@@ -34,19 +33,54 @@ exports.createPost = (req, res, next) => {
 exports.getAllPost = (req, res, next) => {
   let postArray = [];
   Post.find()
-  .sort({ createdAt: -1 })
-  .then((posts) => {
-    posts.forEach((post) => {
-      User.findOne({ _id: post.userId })
-      .then((user) => {
-        console.log(post.post);
-      });
-      postArray.push(post);
+    .sort({ createdAt: -1 })
+    .then((posts) => {
+      posts.forEach((post) => {
+        User.findOne({ _id: post.userId })
+          .then((user) => {
+            console.log(post.post);
+          });
+        postArray.push(post);
 
-    });res.status(200).json(postArray);
-   
-  }).catch((error) => res.status(400).json({error}));
+      }); res.status(200).json(postArray);
+
+    }).catch((error) => res.status(400).json({ error }));
   console.log("💧 Get all posts !")
   console.log(req.body)
-  
+
+}
+
+// update post
+exports.updatePost = (req, res, next) => {
+  let imageUrl = null;
+
+  if (req.file) {
+    imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename
+      }`;
+    Post.updateOne(
+      { _id: req.params.id },
+      {
+        $set: { imageUrl: imageUrl, post: req.body.post },
+      }
+    ).then(() => {
+      Post.findById({ _id: req.params.id })
+        .then((post) => res.status(200).json({ message: "✅ Post has been successfully updated!", post }))
+        .catch((error) => res.status(400).json({ error }));
+    }).catch((error) => {
+      res.status(400).json({ error })
+    });
+  } else {
+    Post.updateOne(
+      { _id: req.params.id },
+      {
+        $set: { post: req.body.post }
+      }
+    ).then(() => {
+      Post.findById({ _id: req.params.id })
+        .then((post) => res.status(200).json({ post }))
+        .catch((error) => res.status(400).json({ error }));
+    }).catch((error) => {
+      res.status(400).json({ error })
+    })
+  }
 }
