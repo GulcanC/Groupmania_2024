@@ -129,22 +129,30 @@ exports.likePost = (req, res, next) => {
     if (!post.usersLiked.includes(req.body.userId)) {
       Post.updateOne(
         { _id: req.params.id },
-        {
-          $inc: { likes: 1 }, $push: { usersLiked: req.body.userId }
-        }
-      ).then(() => {
-        Post.findOne({ _id: req.params.id }).then((updatedPost) =>
-          res.status(200).json({ message: "✅ User liked the post!", updatedPost }));
-      }).catch((error) => res.status(400).json({ error }));
+        { $inc: { likes: 1 }, $push: { usersLiked: req.body.userId } }
+      )
+        .then(() => {
+          // we will use updatedPost in the fronend, be careful
+          Post.findOne({ _id: req.params.id }).then((updatedPost) =>
+            res
+              .status(200)
+              .json({ message: "✅ User liked the post!", updatedPost })
+          );
+        })
+        .catch((error) => res.status(400).json({ error }));
     } else if (post.usersLiked.includes(req.body.userId)) {
-      Post.updatedOne(
+      Post.updateOne(
         { _id: req.params.id },
         { $pull: { usersLiked: req.body.userId }, $inc: { likes: -1 } }
-      ).then(() => {
-        Post.findOne({ _id: req.params.id }).then((updatedPost) =>
-          res.status(200).json({ message: "✅ User unliked the post", updatedPost }))
-
-      }).catch((error) => res.status(400).json({ error }))
+      )
+        .then(() => {
+          Post.findOne({ _id: req.params.id }).then((updatedPost) =>
+            res
+              .status(200)
+              .json({ message: "✅ User unliked the post", updatedPost })
+          );
+        })
+        .catch((error) => res.status(400).json({ error }));
     }
-  })
-}
+  });
+};
