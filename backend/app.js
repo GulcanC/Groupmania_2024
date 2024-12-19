@@ -47,6 +47,7 @@ app.use(hpp());
 
 // http://localhost:3000/api/auth
 app.use("/api/auth", userRoutes);
+// http://localhost:3000/api/publication
 app.use("/api/publication", publicationRoutes);
 
 app.use("/images", express.static(path.join(__dirname, "images")));
