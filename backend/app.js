@@ -40,7 +40,8 @@ app.use((req, res, next) => {
   });
 
 app.use(express.json());
-app.use(helmet({ crossOriginResourcePoliciy: false}));
+//app.use(helmet({ crossOriginResourcePoliciy: false}));
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(exMongoSanitize());
 app.use(morgan('combined'));
 app.use(hpp());
@@ -53,3 +54,9 @@ app.use("/api/publication", publicationRoutes);
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;
+
+
+
+
+
+

@@ -15,9 +15,17 @@ const normalizePort = (originalPort) => {
     if (port >= 0) {
         return port;
 
+          
     }
+
     return false;
 }
+
+
+
+
+
+
 
 // check what kind of error occured
 const errorHandler = (error) => {
@@ -45,8 +53,9 @@ const onListening = () => {
     console.log("✅ Listening on " + bind);
 };
 
+
 // configure the port, call the function normalizePort, pass 3000 as a string
-const port = normalizePort(process.env.PORT || "3000");
+const port = normalizePort(process.env.PORT || "5500");
 app.set("port", port);
 
 // attach the server for the error and for the listener, start server

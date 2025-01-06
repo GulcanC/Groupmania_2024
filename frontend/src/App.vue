@@ -1,19 +1,24 @@
 <template>
     <div>
 <router-view/>
+<VerifyUserComp/>
 
     </div>
 </template>
 
 <script>
-// import SignUpPage from '@/views/SignUpPage.vue';
+import VerifyUserComp from '@/components/VerifyUserComp.vue';
 
 export default {
     name: "App",
     components: {
-      //  SignUpPage
+      VerifyUserComp
     }
 }
 
 
+
+
 </script>
+
+
